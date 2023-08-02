@@ -6,16 +6,21 @@ function translatePigLatin(str) {
     if (vowels.includes(str[0])) {
         return str + 'way';
     } else {
-        // Iterate the string for checking the first vowel
+        // Find the index of the first vowel (if any)
+        let firstVowelIndex = - 1;
         for (let i = 0; i < str.length; i++) {
-            // Check if the character is a vowel
             if (vowels.includes(str[i])) {
-                // Move consonants to the end and add 'ay
-                return str.slice(i) + str.slice(0, i) + 'ay';
+                firstVowelIndex = i;
+                break;
             }
         }
-        // If no vowel found, add 'ay' at the end
-        return str + 'ay';
+        // If there's no vowel in the word, move all consonants to the end
+        if (firstVowelIndex === -1) {
+            return str + 'ay';
+        }
+
+        // Move consonants before the first vowel to the end and add 'ay'
+        return str.slice(firstVowelIndex) + str.slice(0, firstVowelIndex) + 'ay';
     }
 }
 
